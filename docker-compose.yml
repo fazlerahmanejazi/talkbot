@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: talkbot-backend
+    environment:
+      - VHYS_HOST=${VHYS_HOST:-0.0.0.0}
+      - VHYS_PORT=${VHYS_PORT:-8080}
+      - VHYS_SAMPLE_RATE=${VHYS_SAMPLE_RATE:-16000}
+      - VHYS_FRAME_MS=${VHYS_FRAME_MS:-20}
+      - VHYS_USE_PIPER=${VHYS_USE_PIPER:-true}
+      - VHYS_FASTER_WHISPER_MODEL=${VHYS_FASTER_WHISPER_MODEL:-base.en}
+      - VHYS_LLM_MODEL=${VHYS_LLM_MODEL:-gpt-4o-mini}
+      - VHYS_LLM_LOG=${VHYS_LLM_LOG:-true}
+      - VHYS_METRICS_FILE=/app/metrics/latency.ndjson
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    volumes:
+      - ./metrics:/app/metrics
+      - ./models:/app/models:ro
+    ports:
+      - "8080:8080"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    container_name: talkbot-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  metrics:

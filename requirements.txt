@@ -1,0 +1,33 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+pydantic==2.8.2
+python-dotenv==1.0.1
+orjson==3.10.7
+anyio==4.4.0
+
+# Tests & tooling
+pytest==8.3.2
+pytest-asyncio==0.23.8
+httpx==0.27.2
+
+# For later parts (left here so pip install once is enough)
+numpy==1.22.0
+webrtcvad==2.0.10
+soundfile==0.12.1
+
+# ASR (Speech Recognition)
+faster-whisper>=0.10.0
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.30.0
+
+# TTS
+piper-tts>=1.3.0  # Piper TTS for text-to-speech
+
+openai>=1.40.0  # new SDK; supports tools
+python-dotenv>=1.0.1
+
+# Local LLM support
+ollama>=0.3.0
+
+

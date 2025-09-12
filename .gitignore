@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# Data/Models
+models/
+downloads/
+
+# Logs/Metrics
+logs/
+metrics/*.ndjson
+
+# OS/IDE
+.DS_Store
+.idea/
+.vscode/
+
+VOICE_AI_OPTIMIZATION_JOURNEY.md
